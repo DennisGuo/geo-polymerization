@@ -1,0 +1,10 @@
+body{
+    padding-top:60px;
+}
+#mapDiv{
+    width:100%;
+    height:400px;
+}
+.map-box{
+    padding:0;
+}
