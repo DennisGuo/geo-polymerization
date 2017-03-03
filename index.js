@@ -15,7 +15,28 @@ app.use(express.static("public",{
 app.use("/api", proxy(API_TARGET));
 
 app.get("/",function(req,res){
-    res.render('index');
+    res.render('index',{title:""});
+});
+
+app.get("/readme",function(req,res){
+    var fs = require('fs'); 
+    fs.readFile('public/doc/README.md','utf8',function(err,data){
+        var html ;
+        if(err){
+            html = '<b class="alert alert-danger">错误：'+err.message+'</b>';
+        }else{
+            var marked = require('marked');
+            marked.setOptions({
+                highlight: function (code) {
+                    return require('highlight.js').highlightAuto(code).value;
+                }
+            });
+            html = marked(data);
+        }
+        
+        res.render('readme',{title:"服务接口文档",html:html});
+    });
+    
 });
 
 app.listen(PORT, function () {

@@ -15,8 +15,9 @@
             GBMap.addListener("onMapZoomed", onMapBboxChanged);
             GBMap.addListener("onMoveEnd", onMapBboxChanged);
             // GBMap.addListener("onDragEnd",onMapBboxChanged); // onDragEnd 事件无效
+            GBMap.addListener("onMapFinished", onMapBboxChanged);
 
-            loadDataTimer = setTimeout(readMapInfo, 600);
+            //loadDataTimer = setTimeout(readMapInfo, 800);
             resizeTimer = setTimeout(resize, 100);
 
             $(window).resize(function () {
