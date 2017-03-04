@@ -5,6 +5,7 @@ var app = express();
 
 var PORT = 7005;
 var API_TARGET = "http://10.0.0.186:8800";
+var MAP_TARGET = "http://10.0.0.196:8888";
 
 
 app.set('view engine', 'ejs');
@@ -13,6 +14,7 @@ app.use(express.static("public",{
     maxAge:'30d'
 }));
 app.use("/api", proxy(API_TARGET));
+app.use("/QuadServer", proxy(MAP_TARGET));
 
 app.get("/",function(req,res){
     res.render('index',{title:""});

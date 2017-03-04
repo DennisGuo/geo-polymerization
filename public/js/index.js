@@ -7,6 +7,10 @@
     function init() {
         $(function () {
             var mapOptions = {
+                services:[
+                    {name:'vector',url:'/QuadServer/QuadServer/maprequest?services=B_vector'},
+                    {name:'raster',url:'/QuadServer/QuadServer/maprequest?services=B_vector'},
+                ],
                 zoomLevel: 7,
                 showCopyright: false
             };

@@ -28,8 +28,8 @@
             mapProj:"+proj=longlat",            // 地图类型：经纬度
             fixOverlap: true,                   // ff中支持滚轮
             services:[                          // 地图服务
-                {name:"vector",url:"http://10.0.0.196:8888/QuadServer/maprequest?services=B_vector"},
-                {name:"raster",url:"http://10.0.0.196:8888/QuadServer/maprequest?services=B_raster"}
+                {name:"vector",url:"/QuadServer/maprequest?services=B_vector"},
+                {name:"raster",url:"/QuadServer/maprequest?services=B_raster"}
             ],
             movestyle:1,                        // 移动缩放地图是否带动画
             center:[113.34,32.56],                          // 中心点坐标
