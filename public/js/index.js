@@ -64,7 +64,7 @@
         $.get("/api/cluster/mo?bbox=" + bbox.join(',') + "&zoom=" + zoom, function (data) {
             var midle = new Date().getTime();
             //console.log(data);
-            var arr = data.data,
+            var arr = data,
                 prex = getUri() + '/images/icon';
                 iconMany = prex +'/red_marker.png',
                 iconSingle = prex + '/blue_marker.png',
@@ -84,11 +84,11 @@
             for(var i=0;i<arr.length;i++){
                 var pt = arr[i];
                 var obj = {
-                        id:pt.href,
-                        geometry: pt.geometry,
-                        label: pt.count == 1 ? null : pt.count,
+                        id:pt.properties.href,
+                        geometry: 'POINT('+pt.geometry.coordinates[0] +' '+pt.geometry.coordinates[1]+')',
+                        label: pt.properties.count == 1 ? null : pt.properties.count,
                 };
-                if(pt.count == 1){
+                if(pt.properties.count == 1){
                     single.arr.push(obj);
                 }else{
                     many.arr.push(obj);
