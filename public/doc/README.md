@@ -78,13 +78,13 @@ curl -H "Content-Type: image/jpeg" http://localhost:8800/photo-store/110.2345/34
 1) 参数以URL查询参数的形式，例如
 
 ```
-curl -H "Accept: application/json" 'http://127.0.0.1:8800/cluster?extend=120.0,45.0,100.0,25.0&zoom=3'
+curl -H "Accept: application/json" 'http://127.0.0.1:8800/cluster?bbox=120.0,45.0,100.0,25.0&zoom=3'
 ```
 
 或者
 
 ```
-curl -H "Accept: application/json" 'http://127.0.0.1:8800/cluster/photo?extend=120.0,45.0,100.0,25.0&zoom=3'
+curl -H "Accept: application/json" 'http://127.0.0.1:8800/cluster/photo?bbox=120.0,45.0,100.0,25.0&zoom=3'
 ```
 
 2) 聚合查询到返回结果直接从HTTP响应消息到状态判断成功与否
@@ -93,22 +93,15 @@ curl -H "Accept: application/json" 'http://127.0.0.1:8800/cluster/photo?extend=1
 a) 查询照片点聚合
 
 ```
-curl  -H "Accept: application/json" "http://localhost:8800/cluster/photos?zoom=3&extend=119.4,32.3,120.3,34.9"
+curl  -H "Accept: application/json" "http://localhost:8800/cluster/mo?zoom=3&bbox=119.4,32.3,120.3,34.9"
 ```
 
 上面的例子返回：
 
-```
-{
-   "data" : [
-      {
-         "geometry" : "POINT(108.34022886111111 27.539310791666665)",
-         "href" : "/cpoint/4-13-7/photo",
-         "count" : 2
-      }
-   ],
-   "message" : ""
-} 
+```js
+[
+    {"bbox":[121.649,28.4033,121.649,28.4033],"geometry":{"coordinates":[121.649,28.4033],"type":"Point"},"properties":{"count":1,"href":"/cpoint/8-215-107/mo"},"type":"Feature"},{"bbox":[121.857,29.1254,122.389,30.1432],"geometry":{"coordinates":[121.96841666666667,29.919436190476187],"type":"Point"},"properties":{"count":70,"href":"/cpoint/8-215-106/mo"},"type":"Feature"}
+]
 ```
 
 1.3 点聚合详情查询接口
@@ -117,18 +110,39 @@ curl  -H "Accept: application/json" "http://localhost:8800/cluster/photos?zoom=3
 路径参数来自上一个聚合查询返回结果，例如
 
 ```
-curl -H "Accept: application/json" "http://127.0.0.1:8800//cpoint/4-13-7/photo"
+curl -H "Accept: application/json" "http://127.0.0.1:8800/cpoint/8-215-107/mo"
 ```
 
 返回结果：
 
 ```
 {
-   "points" : [
-      "8yraaiu5c0wj8zqge0vcu8v66",
-      "drgeoj46fvbbsbmwiopye8v2v"
-   ]
-}
+  "bbox": [
+    121.649,
+    28.4033,
+    121.649,
+    28.4033
+  ],
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          121.649,
+          28.4033
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "class": "mo",
+        "datetime": "2013:05:29 13:55:28",
+        "id": "13372545024_C",
+        "name": "WJ10-BC609"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}}
 ```
 
 2. 设计与实现
